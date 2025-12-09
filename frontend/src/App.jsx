@@ -1,35 +1,38 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className="flex min-h-screen items-center justify-center bg-slate-100 p-6">
+      <div className="w-full max-w-md space-y-6 rounded-xl bg-white p-8 shadow-lg">
+        <header className="space-y-2 text-center">
+          <p className="text-sm font-semibold uppercase tracking-wide text-sky-500">
+            TrackTruck
+          </p>
+          <h1 className="text-2xl font-bold text-slate-900">
+            Bienvenue sur votre tableau de bord
+          </h1>
+          <p className="text-sm text-slate-500">
+            Le styling est désormais alimenté par Tailwind CSS.
+          </p>
+        </header>
+
+        <div className="space-y-4">
+          <button
+            type="button"
+            className="w-full rounded-lg bg-sky-600 px-4 py-2 text-sm font-medium text-white shadow-sm transition hover:bg-sky-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-sky-600"
+            onClick={() => setCount((current) => current + 1)}
+          >
+            Compteur&nbsp;: {count}
+          </button>
+          <p className="text-center text-xs text-slate-500">
+            Modifiez <code className="rounded bg-slate-100 px-1 py-px">src/App.jsx</code> pour commencer.
+          </p>
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
