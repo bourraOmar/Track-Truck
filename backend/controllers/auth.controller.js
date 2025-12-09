@@ -8,7 +8,7 @@ const generationToken = (user) => {
   });
 };
 
-post.register = async (req, res, next) => {
+exports.register = async (req, res, next) => {
   try {
     const { email, password, role, firstName, lastName } = req.body;
 
@@ -39,7 +39,7 @@ post.register = async (req, res, next) => {
   }
 };
 
-post.login = async (req, res, next) => {
+exports.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
