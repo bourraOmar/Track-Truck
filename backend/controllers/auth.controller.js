@@ -27,11 +27,18 @@ exports.register = async (req, res, next) => {
       lastName,
     });
 
+    await user.save();
+
+    const token = generationToken(user);
+
     res.status(201).json({
+      token,
       user: {
         id: user._id,
         role: user.role,
         email: user.email,
+        firstName: user.firstName,
+        lastName: user.lastName,
       },
     });
   } catch (error) {
