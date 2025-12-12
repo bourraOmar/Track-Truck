@@ -1,36 +1,41 @@
 const Vehicle = require("../models/Vehicle.model");
-const asyncHandler = require("express-async-handler");
 
-exports.createVehicle = asyncHandler(async (req, res) => {
-  const { plateNumber, brand, model, vehicleType, fuelType, maxLoad } =
-    req.body;
+exports.createVehicle = async (req, res, next) => {
+  try {
+    const { plateNumber, brand, model, vehicleType, fuelType, maxLoad } =
+      req.body;
 
-  const exists = await Vehicle.findOne({ plateNumber });
-  if (exists) {
-    res.status(400);
-    throw new Error(
-      "Un véhicule avec cette plaque d'immatriculation existe déjà."
-    );
+    const exists = await Vehicle.findOne({ plateNumber });
+    if (exists) {
+      res.status(400);
+      const error = new Error(
+        "Un véhicule avec cette plaque d'immatriculation existe déjà."
+      );
+      error.status = 400;
+      next(error);
+      return;
+    }
+    const vehicle = await Vehicle.create({
+      plateNumber,
+      brand,
+      model,
+      vehicleType,
+      fuelType,
+      maxLoad,
+    });
+
+    res.status(200).json(vehicle);
+  } catch (error) {
+    next(error)
   }
+};
 
-  const vehicle = await Vehicle.create({
-    plateNumber,
-    brand,
-    model,
-    vehicleType,
-    fuelType,
-    maxLoad,
-  });
-
-  res.status(200).json(vehicle);
-});
-
-exports.getVehicles = asyncHandler(async (req, res) => {
+exports.getVehicles = async (req, res, next) => {
   const vehicles = await Vehicle.find().sort({ createdAt: -1 });
   res.status(200).json(vehicles);
-});
+};
 
-exports.getVehicleById = asyncHandler(async (req, res) => {
+exports.getVehicleById = async (req, res, next) => {
   const vehicle = await Vehicle.findById(req.params.id);
 
   if (!vehicle) {
@@ -38,9 +43,9 @@ exports.getVehicleById = asyncHandler(async (req, res) => {
   }
 
   res.status(200).json(vehicle);
-});
+};
 
-exports.updateVehicle = asyncHandler(async (req, res) => {
+exports.updateVehicle = async (req, res, next) => {
   const vehicle = await Vehicle.findById(req.params.id);
 
   if (!vehicle) {
@@ -49,14 +54,18 @@ exports.updateVehicle = asyncHandler(async (req, res) => {
       .json({ message: "Véhicule non trouvé pour la modification." });
   }
 
-  const updatedVehicle = await Vehicle.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-    runValidators: true,
-  });
+  const updatedVehicle = await Vehicle.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+      runValidators: true,
+    }
+  );
   res.status(200).json(updatedVehicle);
-});
+};
 
-exports.deleteVehicle = asyncHandler(async (req, res) => {
+exports.deleteVehicle = async (req, res, next) => {
   const vehicle = await Vehicle.findByIdAndDelete(req.params.id);
 
   if (!vehicle) {
@@ -68,4 +77,4 @@ exports.deleteVehicle = asyncHandler(async (req, res) => {
   res
     .status(200)
     .json({ message: "Véhicule supprimé avec succès", id: req.params.id });
-});
+};
