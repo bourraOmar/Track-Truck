@@ -210,7 +210,7 @@ const Home = () => {
             {[
               {
                 name: "DRY VAN",
-                img: "https://images.unsplash.com/photo-1586191582118-274277281c51?auto=format&fit=crop&w=600&q=80",
+                img: "https://images.pexels.com/photos/2199293/pexels-photo-2199293.jpeg",
               },
               {
                 name: "REEFER",
@@ -218,11 +218,11 @@ const Home = () => {
               },
               {
                 name: "FLATBED",
-                img: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=600&q=80",
+                img: "https://images.pexels.com/photos/1267325/pexels-photo-1267325.jpeg",
               },
               {
                 name: "POWER ONLY",
-                img: "https://images.unsplash.com/photo-1605218427368-35b08968e22d?auto=format&fit=crop&w=600&q=80",
+                img: "https://images.pexels.com/photos/13520550/pexels-photo-13520550.jpeg",
               },
               {
                 name: "BOX TRUCK",
@@ -230,7 +230,7 @@ const Home = () => {
               },
               {
                 name: "STRAIGHT BOX TRUCK",
-                img: "https://images.unsplash.com/photo-1469334031218-e382a71b716b?auto=format&fit=crop&w=600&q=80",
+                img: "https://images.pexels.com/photos/13961752/pexels-photo-13961752.jpeg",
               },
             ].map((service, idx) => (
               <div
