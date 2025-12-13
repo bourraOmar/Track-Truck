@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { FaTruckMoving, FaChartPie, FaTruck, FaUserTie, FaMapMarkedAlt, FaSignOutAlt, FaCircleNotch } from 'react-icons/fa';
 import useAuth from '../hooks/useAuth';
 import Background from '../assets/background.png';
 
@@ -30,26 +31,30 @@ const AdminSidebar = () => {
         >
             <div className="relative z-10">
                 <div className="flex items-center text-2xl font-bold mb-12 bg-white bg-opacity-10 p-3 rounded-lg backdrop-blur-sm">
-                    <span className="mr-3 text-3xl">🚛</span>
+                    <FaTruckMoving className="mr-3 text-3xl" />
                     TrackTruck
                 </div>
                 
                 <nav className="space-y-4">
                     <Link to="/admin/dashboard" className={`flex items-center space-x-3 py-3 px-4 rounded-xl ${isActive('/admin/dashboard')}`}>
-                        <span>📊</span>
+                        <FaChartPie className="text-xl" />
                         <span className="font-medium">Tableau de Bord</span>
                     </Link>
                     <Link to="/admin/vehicle" className={`flex items-center space-x-3 py-3 px-4 rounded-xl ${isActive('/admin/vehicle')}`}>
-                        <span>🚚</span>
+                        <FaTruck className="text-xl" />
                         <span className="font-medium">Véhicules</span>
                     </Link>
                     <Link to="/admin/drivers" className={`flex items-center space-x-3 py-3 px-4 rounded-xl ${isActive('/admin/drivers')}`}>
-                        <span>👨‍✈️</span>
+                        <FaUserTie className="text-xl" />
                         <span className="font-medium">Chauffeurs</span>
                     </Link>
                     <Link to="/admin/trips" className={`flex items-center space-x-3 py-3 px-4 rounded-xl ${isActive('/admin/trips')}`}>
-                        <span>🗺️</span>
+                        <FaMapMarkedAlt className="text-xl" />
                         <span className="font-medium">Trajets</span>
+                    </Link>
+                    <Link to="/admin/tires" className={`flex items-center space-x-3 py-3 px-4 rounded-xl ${isActive('/admin/tires')}`}>
+                        <FaCircleNotch className="text-xl" />
+                        <span className="font-medium">Pneus</span>
                     </Link>
                 </nav>
             </div>
@@ -64,7 +69,7 @@ const AdminSidebar = () => {
                     onClick={handleLogout} 
                     className="w-full py-3 bg-red-600 rounded-xl hover:bg-red-700 transition duration-150 font-bold shadow-lg flex items-center justify-center space-x-2"
                 >
-                    <span>🚪</span>
+                    <FaSignOutAlt />
                     <span>Déconnexion</span>
                 </button>
             </div>
