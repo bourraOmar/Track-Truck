@@ -1,15 +1,34 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom'; 
+import { FaTruck, FaMapMarkerAlt, FaTools } from 'react-icons/fa';
 import useAuth from '../../hooks/useAuth';
 import AdminSidebar from '../../components/AdminSidebar';
+import { getDashboardStats } from '../../api/statsService';
 
 const AdminDashboard = () => {
     const { user } = useAuth();
+    const [dashboardData, setDashboardData] = useState({
+        totalVehicles: 0,
+        activeTrips: 0,
+        maintenanceVehicles: 0
+    });
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const data = await getDashboardStats();
+                setDashboardData(data);
+            } catch (error) {
+                console.error("Error fetching dashboard stats:", error);
+            }
+        };
+        fetchStats();
+    }, []);
 
     const stats = [
-        { name: "Total Camions", value: "25", link: "/admin/vehicles", icon: "🚛" },
-        { name: "Trajets en cours", value: "12", link: "/admin/trips", icon: "📍" },
-        { name: "Maintenance requise", value: "3", link: "/admin/maintenance", icon: "🔧" },
+        { name: "Total Camions", value: dashboardData.totalVehicles, link: "/admin/vehicle", icon: <FaTruck /> },
+        { name: "Trajets en cours", value: dashboardData.activeTrips, link: "/admin/trips", icon: <FaMapMarkerAlt /> },
+        { name: "Maintenance requise", value: dashboardData.maintenanceVehicles, link: "/admin/vehicle", icon: <FaTools /> },
     ];
 
     return (

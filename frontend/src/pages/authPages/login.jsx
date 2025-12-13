@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import Background from "../../assets/background.png";
 
@@ -16,11 +16,14 @@ function LoginPage() {
   const navigate = useNavigate();
 
   // Redirection immédiate si déjà connecté
-  if (isAuthenticated) {
-    const targetPath = user.role === "Admin" ? "/admin/dashboard" : "/driver/trips";
-    navigate(targetPath, { replace: true });
-    return null;
-  }
+  useEffect(() => {
+    if (isAuthenticated && user) {
+      const targetPath = user.role === "Admin" ? "/admin/dashboard" : "/driver/trips";
+      navigate(targetPath, { replace: true });
+    }
+  }, [isAuthenticated, user, navigate]);
+
+  if (isAuthenticated) return null;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -72,12 +75,7 @@ function LoginPage() {
           </p>
         </div>
 
-        {/* Bouton de déconnexion (simulé ici, mais mieux géré dans un Layout) */}
-        <div className="absolute top-8 right-8">
-          <Link to="/register" className="bg-black text-white py-2 px-6 rounded-lg text-sm font-semibold hover:bg-gray-800">
-            S'inscrire
-          </Link>
-        </div>
+        {/* Bouton d'inscription supprimé */}
       </div>
 
       {/* ---------------------------------------------------- */}
@@ -226,16 +224,7 @@ function LoginPage() {
             </div>
           </div>
 
-          {/* Lien d'inscription (Register) */}
-          <p className="text-center text-sm mt-8">
-            Vous n'avez pas de compte ?{" "}
-            <Link
-              to="/register"
-              className="font-semibold text-indigo-600 hover:text-indigo-500"
-            >
-              S'inscrire
-            </Link>
-          </p>
+          {/* Lien d'inscription (Register) - Supprimé */}
         </div>
       </div>
     </div>

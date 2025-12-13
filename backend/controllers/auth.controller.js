@@ -42,6 +42,37 @@ exports.register = async (req, res, next) => {
   });
 };
 
+exports.createDriver = async (req, res, next) => {
+  const { email, password, firstName, lastName } = req.body;
+
+  let user = await User.findOne({ email });
+  if (user) {
+    return res.status(400).json({ message: "User already exists" });
+  }
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  user = new User({
+    email,
+    password: hashedPassword,
+    role: "Driver",
+    firstName,
+    lastName,
+  });
+
+  await user.save();
+
+  res.status(201).json({
+    message: "Driver created successfully",
+    user: {
+      id: user._id,
+      email: user.email,
+      firstName: user.firstName,
+      lastName: user.lastName,
+    },
+  });
+};
+
 exports.login = async (req, res, next) => {
   const { email, password } = req.body;
 
@@ -68,4 +99,13 @@ exports.login = async (req, res, next) => {
       lastName: user.lastName,
     },
   });
+};
+
+exports.getAllDrivers = async (req, res, next) => {
+  try {
+    const drivers = await User.find({ role: 'Driver' }).select('-password');
+    res.status(200).json(drivers);
+  } catch (error) {
+    next(error);
+  }
 };

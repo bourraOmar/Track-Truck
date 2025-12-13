@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { FaTruckMoving, FaChartPie, FaTruck, FaUserTie, FaMapMarkedAlt, FaSignOutAlt, FaCircleNotch } from 'react-icons/fa';
+import { FaTruckMoving, FaMapMarkedAlt, FaSignOutAlt } from 'react-icons/fa';
 import useAuth from '../hooks/useAuth';
 import Background from '../assets/background.png';
 
-const AdminSidebar = () => {
+const DriverSidebar = () => {
     const { user, logout } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
@@ -36,25 +36,9 @@ const AdminSidebar = () => {
                 </div>
                 
                 <nav className="space-y-4">
-                    <Link to="/admin/dashboard" className={`flex items-center space-x-3 py-3 px-4 rounded-xl ${isActive('/admin/dashboard')}`}>
-                        <FaChartPie className="text-xl" />
-                        <span className="font-medium">Tableau de Bord</span>
-                    </Link>
-                    <Link to="/admin/vehicle" className={`flex items-center space-x-3 py-3 px-4 rounded-xl ${isActive('/admin/vehicle')}`}>
-                        <FaTruck className="text-xl" />
-                        <span className="font-medium">Véhicules</span>
-                    </Link>
-                    <Link to="/admin/drivers" className={`flex items-center space-x-3 py-3 px-4 rounded-xl ${isActive('/admin/drivers')}`}>
-                        <FaUserTie className="text-xl" />
-                        <span className="font-medium">Chauffeurs</span>
-                    </Link>
-                    <Link to="/admin/trips" className={`flex items-center space-x-3 py-3 px-4 rounded-xl ${isActive('/admin/trips')}`}>
+                    <Link to="/driver/trips" className={`flex items-center space-x-3 py-3 px-4 rounded-xl ${isActive('/driver/trips')}`}>
                         <FaMapMarkedAlt className="text-xl" />
-                        <span className="font-medium">Trajets</span>
-                    </Link>
-                    <Link to="/admin/tires" className={`flex items-center space-x-3 py-3 px-4 rounded-xl ${isActive('/admin/tires')}`}>
-                        <FaCircleNotch className="text-xl" />
-                        <span className="font-medium">Pneus</span>
+                        <span className="font-medium">Mes Missions</span>
                     </Link>
                 </nav>
             </div>
@@ -63,7 +47,7 @@ const AdminSidebar = () => {
                 <div className="mb-6 px-4">
                     <p className="text-xs text-gray-400 uppercase tracking-wider mb-2">Connecté en tant que</p>
                     <div className="font-bold text-lg">{user?.firstName} {user?.lastName}</div>
-                    <div className="text-sm text-gray-300">Administrateur</div>
+                    <div className="text-sm text-gray-300">Chauffeur</div>
                 </div>
                 <button 
                     onClick={handleLogout} 
@@ -77,4 +61,4 @@ const AdminSidebar = () => {
     );
 };
 
-export default AdminSidebar;
+export default DriverSidebar;

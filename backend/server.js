@@ -4,9 +4,10 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const authRoutes = require('./routes/auth.routes');
 const vehicleRoutes = require('./routes/vehicle.routes');
+const tripRoutes = require('./routes/trip.routes');
+const statsRoutes = require('./routes/stats.routes');
+const tireRoutes = require('./routes/tire.routes');
 const { verifyToken, protectRoute } = require('./middleware/auth.middleware');
-
-// const tripRoutes = require('./routes/trip.routes');
 
 const app = express();
 
@@ -27,6 +28,9 @@ app.use(express.json());
 app.use('/api/auth', authRoutes);
 
 app.use('/api/vehicles', verifyToken, protectRoute(['Admin']), vehicleRoutes);
+app.use('/api/trips', tripRoutes);
+app.use('/api/stats', statsRoutes);
+app.use('/api/tires', tireRoutes);
 
 
 
