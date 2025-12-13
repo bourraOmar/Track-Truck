@@ -10,7 +10,8 @@ const AdminDashboard = () => {
     const [dashboardData, setDashboardData] = useState({
         totalVehicles: 0,
         activeTrips: 0,
-        maintenanceVehicles: 0
+        maintenanceVehicles: 0,
+        recentTrips: []
     });
 
     useEffect(() => {
@@ -70,24 +71,32 @@ const AdminDashboard = () => {
                     ))}
                 </div>
 
-                {/* Recent Activity Section (Placeholder) */}
+                {/* Recent Activity Section */}
                 <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
                     <h2 className="text-2xl font-bold text-gray-900 mb-6">Activité Récente</h2>
                     <div className="space-y-4">
-                        {[1, 2, 3].map((item) => (
-                            <div key={item} className="flex items-center justify-between p-4 hover:bg-gray-50 rounded-xl transition-colors border-b border-gray-50 last:border-0">
-                                <div className="flex items-center space-x-4">
-                                    <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
-                                        #{item}
+                        {dashboardData.recentTrips?.length > 0 ? (
+                            dashboardData.recentTrips.map((trip, index) => (
+                                <div key={trip._id} className="flex items-center justify-between p-4 hover:bg-gray-50 rounded-xl transition-colors border-b border-gray-50 last:border-0">
+                                    <div className="flex items-center space-x-4">
+                                        <div className="w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-600 font-bold">
+                                            #{index + 1}
+                                        </div>
+                                        <div>
+                                            <p className="font-bold text-gray-800">{trip.departure} ➝ {trip.arrival}</p>
+                                            <p className="text-sm text-gray-500">
+                                                Chauffeur: {trip.driver?.firstName} {trip.driver?.lastName} • {trip.vehicle?.plateNumber}
+                                            </p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <p className="font-bold text-gray-800">Trajet Paris - Lyon terminé</p>
-                                        <p className="text-sm text-gray-500">Chauffeur: Jean Dupont • Camion: VOL-123</p>
-                                    </div>
+                                    <span className="text-sm text-gray-400">
+                                        {new Date(trip.startDate).toLocaleDateString()}
+                                    </span>
                                 </div>
-                                <span className="text-sm text-gray-400">Il y a 2h</span>
-                            </div>
-                        ))}
+                            ))
+                        ) : (
+                            <p className="text-gray-500 text-center py-4">Aucune activité récente.</p>
+                        )}
                     </div>
                 </div>
             </main>

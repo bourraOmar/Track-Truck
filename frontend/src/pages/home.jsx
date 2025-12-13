@@ -23,7 +23,7 @@ const Home = () => {
       {/* Navigation Overlay */}
       <nav className="absolute top-0 left-0 right-0 z-20 flex justify-between items-center p-6 text-white">
         <div className="text-2xl font-bold flex items-center gap-2">
-          TrackTruck
+          <FaTruckMoving className="mr-3 text-3xl"/> TrackTruck
         </div>
         <div className="hidden md:flex space-x-8 font-medium">
           <a href="#" className="hover:text-indigo-400 transition">

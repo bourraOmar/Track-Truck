@@ -30,10 +30,10 @@ const DriverSidebar = () => {
             }}
         >
             <div className="relative z-10">
-                <div className="flex items-center text-2xl font-bold mb-12 bg-white bg-opacity-10 p-3 rounded-lg backdrop-blur-sm">
+                <Link to="/" className="flex items-center text-2xl font-bold mb-12 bg-white bg-opacity-10 p-3 rounded-lg backdrop-blur-sm">
                     <FaTruckMoving className="mr-3 text-3xl" />
                     TrackTruck
-                </div>
+                </Link>
                 
                 <nav className="space-y-4">
                     <Link to="/driver/trips" className={`flex items-center space-x-3 py-3 px-4 rounded-xl ${isActive('/driver/trips')}`}>

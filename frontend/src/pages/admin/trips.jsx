@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FaMapMarkedAlt, FaUserTie, FaTruck, FaCalendarAlt, FaTrash, FaFilePdf } from 'react-icons/fa';
 import AdminSidebar from '../../components/AdminSidebar';
 import Toast from "../../components/Toast";
-import { getTrips, createTrip, deleteTrip, getDrivers, downloadMissionOrder } from "../../api/tripService";
+import { getTrips, createTrip, deleteTrip, getDrivers } from "../../api/tripService";
 import { getVehicles } from "../../api/vehicleService";
 
 const TripManagement = () => {
