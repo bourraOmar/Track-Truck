@@ -2,7 +2,7 @@ import React, { createContext, useState, useEffect } from "react";
 import {
   login as apiLogin,
   logout as apiLogout,
-  register as apiRegister,
+  // register as apiRegister,
 } from "../api/authService";
 
 export const AuthContext = createContext({
@@ -64,6 +64,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     apiLogout();
+    localStorage.removeItem(AUTH_STORAGE_KEY);
     setToken(null);
     setUser(null);
     setIsAuthenticated(false);
