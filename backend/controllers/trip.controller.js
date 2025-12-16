@@ -49,7 +49,6 @@ exports.getMissionOrderPDF = catchHandler(async (req, res) => {
     return res.status(404).json({ message: 'Trip not found' });
   }
 
-  // Restrict access to the assigned driver only (no admins)
   if (trip.driver._id.toString() !== req.user.id) {
     return res.status(403).json({ message: 'Access denied. Only the assigned driver can download this mission order.' });
   }

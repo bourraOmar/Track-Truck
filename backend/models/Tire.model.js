@@ -31,7 +31,7 @@ const tireSchema = new mongoose.Schema({
     default: null
   },
   position: {
-    type: String, // e.g., "Front-Left", "Rear-Right-Outer"
+    type: String, 
     default: null
   },
   purchaseDate: {

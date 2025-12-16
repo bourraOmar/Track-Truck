@@ -4,8 +4,7 @@ const tireController = require('../controllers/tire.controller');
 const { verifyToken, protectRoute } = require('../middleware/auth.middleware');
 
 router.use(verifyToken);
-router.use(protectRoute(['Admin'])); // Only admins manage tires
-
+router.use(protectRoute(['Admin'])); 
 router.route('/')
   .get(tireController.getAllTires)
   .post(tireController.createTire);
