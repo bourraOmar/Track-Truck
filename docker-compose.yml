@@ -1,0 +1,63 @@
+version: '3.8'
+
+services:
+  # Service Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: tracktruck-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGO_URI=mongodb://mongodb:27017/tracktruck
+      - JWT_SECRET=${JWT_SECRET:-your_secret_key_change_in_production}
+    depends_on:
+      - mongodb
+    networks:
+      - tracktruck-network
+    restart: unless-stopped
+    volumes:
+      - ./backend:/app/backend
+      - /app/backend/node_modules
+
+  # Service Frontend
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: tracktruck-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    networks:
+      - tracktruck-network
+    restart: unless-stopped
+
+  # Service MongoDB
+  mongodb:
+    image: mongo:7.0-alpine
+    container_name: tracktruck-mongodb
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=tracktruck
+    volumes:
+      - mongodb_data:/data/db
+      - mongodb_config:/data/configdb
+    networks:
+      - tracktruck-network
+    restart: unless-stopped
+
+# Réseau personnalisé pour la communication entre les conteneurs
+networks:
+  tracktruck-network:
+    driver: bridge
+
+# Volumes pour la persistance des données
+volumes:
+  mongodb_data:
+  mongodb_config:

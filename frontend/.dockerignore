@@ -1,0 +1,8 @@
+# Fichiers et dossiers à ignorer dans Docker
+
+node_modules/
+npm-debug.log
+.env.local
+.DS_Store
+.vite/
+coverage/
